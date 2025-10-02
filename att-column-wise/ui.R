@@ -88,7 +88,7 @@ navbarPage(
         ),
       ),
       mainPanel(
-        plotOutput("idea_plot", width = "90%", height = 800)
+        plotOutput("idea_plot", height = 800)
       )
     )
   ),
