@@ -382,7 +382,7 @@ function(input, output, session) {
         if(length(i) > 1) i <- sample(i, 1)
         bg_dat <- setNames(data.frame(grid2, att_score[, i]), c("x1", "x2", "z"))
         bg <- list(geom_contour_filled(aes(z = z), data = bg_dat,
-                                       breaks = c(seq(0, quantile(att_score, 0.99), len = 20), Inf)),
+                                       breaks = c(seq(0, quantile(att_score, 0.995), len = 20), Inf)),
                    scale_fill_discrete(name = format("Weight", width = 12),
                                        palette = \(n) hcl.colors(n, "Inferno"),
                                        drop = FALSE, guide = guide_coloursteps(),
