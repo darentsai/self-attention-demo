@@ -103,12 +103,12 @@ navbarPage(
         hr(),
         sliderInput("n_axis", "Number of Axes", min = 1, max = 10, value = 5, step = 1),
         radioButtons("str", "Structure", choiceNames = list(
-          tagList("Separate affine transformations for \\((K, V)\\)",
+          tagList("Separate affine trans. for \\((K, V)\\)",
                   tooltip(bsicons::bs_icon("info-circle"),
                           "Number of trainable paremeters", br(),
                           "\\( [Q]2 + [K](2 \\times axis) + [V](2 \\times axis) \\)", br(),
                           "\\( = 4 \\times axis + 2 \\)")),
-          tagList("Shared affine transformation for \\((K, V)\\)",
+          tagList("Shared affine trans. for \\((K, V)\\)",
                   tooltip(bsicons::bs_icon("info-circle"),
                           "Number of trainable paremeters", br(),
                           "\\( 2 \\times axis + head \\times ([Q]2 + [K]2 + [V]2) + [O](head + 1) \\)", br(),
@@ -124,14 +124,16 @@ navbarPage(
         numericInput("lr", label = "Learning Rate", min = 0.001, max = 1, value = 0.01, step = 0.002),
         shinyWidgets::sliderTextInput("n_batch", "Batch Size", selected = 32L, choices = 2^(0:7), grid = TRUE),
         sliderInput("n_epoch", "Number of Epochs", min = 0, max = 100, value = 20, step = 5),
-        sliderInput("frac_val", "Fraction of Validation Set", min = 0, max = 0.5, value = 0.2, step = 0.05)
+        sliderInput("frac_val", "Fraction of Validation Set", min = 0, max = 0.5, value = 0.2, step = 0.05),
+        width = 3
       ),
       mainPanel(
         tabsetPanel(
           tabPanel("Demo", plotOutput("demo_plot", width = 750, height = 700)),
           tabPanel("Loss", plotOutput("loss_plot", width = 750, height = 700)),
           tabPanel("Info", verbatimTextOutput("info"))
-        )
+        ),
+        width = 9
       )
     )
   )
