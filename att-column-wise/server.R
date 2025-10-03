@@ -12,14 +12,14 @@ function(input, output, session) {
                      input$wK2, input$bK2, input$wV2, input$bV2,
                      input$wK3, input$bK3, input$wV3, input$bV3)
     layout(matrix(1:2, nrow = 2), heights = c(1.5, 1))
-    par(mar = c(0, 4.2, 0.1, 15), cex = 1.3)
+    par(mar = c(0, 4.2, 0.1, 20), cex = 1.3)
     matplot(grid_x, attr(res, "value"), type = 'l', col = 2:4, lty = 2:4, lwd = 3,
             xaxt = "n", ylab = "Output")
     lines(grid_x, res, lwd = 3)
     grid(lwd = 1.5)
     legend("bottomright", legend = 1:3, title = "Axis", col = 2:4, lty = 2:4, lwd = 3, title.font = 2,
            inset = c(-0.15, 0), xpd = TRUE)
-    par(mar = c(4.2, 4.2, 0.5, 15))
+    par(mar = c(4.2, 4.2, 0.5, 20))
     matplot(grid_x, attr(res, "weight"), type = 'l', col = 2:4, lty = 2:4, lwd = 3,
             xlab = "x", ylab = "Attention Score")
     grid(lwd = 1.5); axis(1, -lim:lim)

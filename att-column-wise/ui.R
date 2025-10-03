@@ -34,8 +34,8 @@ navbarPage(
       sidebarPanel(
         splitLayout(
           p("\\(Q\\)"),
-          sliderInput("wQ", strong("Weight"), min = -5, max = 5, value = 1, step = 0.1, width = "95%"),
-          sliderInput("bQ", strong("Bias"), min = -5, max = 5, value = 0, step = 0.1, width = "95%"),
+          sliderInput("wQ", "\\(\\text{Weight}\\)", min = -5, max = 5, value = 1, step = 0.1, width = "95%"),
+          sliderInput("bQ", "\\(\\text{Bias}\\)", min = -5, max = 5, value = 0, step = 0.1, width = "95%"),
           cellWidths = c("6%", "47%", "47%"), cellArgs = list(style = "vertical-align: middle;")
         ),
         hr(),
