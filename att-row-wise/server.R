@@ -258,6 +258,11 @@ function(input, output, session) {
     std_layer <- layer_normalization(axis = -1L, name = "std_layer")
     std_layer %>% adapt(x)
     y2 <- scale(y)
+    key <- op_expand_dims(
+      cbind(std_layer(x), y2[, 1],
+            std_layer(x) * op_tile(op_expand_dims(y2[, 1], -1), tail(shape(.), 1))),
+      axis = 1
+    )
     
     inputs <- layer_input(shape = c(2L))
     att_layer <- layer_multi_head_attention_rbf(
@@ -269,9 +274,7 @@ function(input, output, session) {
       std_layer() %>%
       layer_reshape(c(1L, 2L)) %>%
       att_layer(query = .,
-                key = op_expand_dims(cbind(std_layer(x),
-                                           y2[, 1],
-                                           std_layer(x) * op_tile(op_expand_dims(y2[, 1], -1), tail(shape(.), 1))), 1),
+                key = key,
                 value = op_expand_dims(y, 1),
                 return_attention_scores = TRUE,
                 rbf = (input$kernel == "rbf"))
