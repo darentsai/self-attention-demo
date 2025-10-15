@@ -260,7 +260,7 @@ function(input, output, session) {
     y2 <- scale(y)
     key <- op_expand_dims(
       cbind(std_layer(x), y2[, 1],
-            std_layer(x) * op_tile(op_expand_dims(y2[, 1], -1), tail(shape(.), 1))),
+            std_layer(x) * op_tile(op_expand_dims(y2[, 1], -1), tail(shape(x), 1))),
       axis = 1
     )
     
