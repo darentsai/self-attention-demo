@@ -260,14 +260,14 @@ function(input, output, session) {
     y2 <- scale(y)
     key <- op_expand_dims(
       cbind(std_layer(x), y2[, 1],
-            std_layer(x) * op_tile(op_expand_dims(y2[, 1], -1), tail(shape(x), 1))),
+            std_layer(x) * y2[, 1, drop = FALSE]),
       axis = 1
     )
     
     inputs <- layer_input(shape = c(2L))
     att_layer <- layer_multi_head_attention_rbf(
       num_heads = n_head, key_dim = input$proj_dim,
-      value_dim = 2L, output_shape = shape(2L)
+      value_dim = 2L
     )
     
     outputs <- inputs %>%
