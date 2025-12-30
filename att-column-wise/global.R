@@ -4,10 +4,10 @@ library(keras3)
 library(reticulate)
 
 source_python(
-  "https://raw.githubusercontent.com/darentsai/keras/refs/heads/master/keras/src/layers/attention/multi_head_attention_rbf.py",
+  "https://raw.githubusercontent.com/darentsai/keras/refs/heads/master/keras/src/layers/attention/multi_head_attention.py",
   envir = NULL
 )
-layer_multi_head_attention_rbf <- py$MultiHeadAttentionRBF
+layer_multi_head_attention_rbf <- py$MultiHeadAttention
 
 att_3axis <- function(x, wQ, bQ,
                       wK1, bK1, wV1, bV1,

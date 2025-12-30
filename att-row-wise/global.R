@@ -4,10 +4,10 @@ library(keras3)
 library(reticulate)
 
 source_python(
-  "https://raw.githubusercontent.com/darentsai/keras/refs/heads/master/keras/src/layers/attention/multi_head_attention_rbf.py",
+  "https://raw.githubusercontent.com/darentsai/keras/refs/heads/master/keras/src/layers/attention/multi_head_attention.py",
   envir = NULL
 )
-layer_multi_head_attention_rbf <- py$MultiHeadAttentionRBF
+layer_multi_head_attention_rbf <- py$MultiHeadAttention
 
 risk_score <- function(x1, x2, w1, w2, bias) {
   x1 * w1 + x2 * w2 + bias
