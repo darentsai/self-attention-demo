@@ -259,8 +259,7 @@ function(input, output, session) {
     std_layer %>% adapt(x)
     y2 <- scale(y)
     key <- op_expand_dims(
-      cbind(std_layer(x), y2[, 1],
-            std_layer(x) * y2[, 1, drop = FALSE]),
+      layer_concatenate(std_layer(x), y2[, 1], std_layer(x) * y2[, 1, drop = FALSE]),
       axis = 1
     )
     
@@ -272,7 +271,7 @@ function(input, output, session) {
     
     outputs <- inputs %>%
       std_layer() %>%
-      layer_reshape(c(1L, 2L)) %>%
+      layer_reshape(c(1L, -1L)) %>%  # -1: shape inference
       att_layer(query = .,
                 key = key,
                 value = op_expand_dims(y, 1),
