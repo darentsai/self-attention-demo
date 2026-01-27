@@ -259,10 +259,12 @@ function(input, output, session) {
     std_layer %>% adapt(x)
     x_std <- std_layer(x)
     y_std <- scale(y)[, 1, drop = FALSE]
-    key <- op_expand_dims(
-      layer_concatenate(x_std, y_std, x_std * y_std),
-      axis = 1
-    )
+    if(input$key_augment) {
+      xy <- layer_concatenate(x_std, y_std, x_std * y_std)
+    } else {
+      xy <- layer_concatenate(x_std)
+    }
+    key <- op_expand_dims(xy, axis = 1)
     
     inputs <- layer_input(shape = c(2L))
     att_layer <- layer_multi_head_attention_rbf(
@@ -380,7 +382,7 @@ function(input, output, session) {
       output$att_plot <- renderPlot({
         pt2 <- set_pt2()
         xs <- scale(x)
-        d <- as.matrix(pdist::pdist(xs, scale(pt2, attr(xs,"scaled:center"), attr(xs,"scaled:scale"))))
+        d <- as.matrix(pdist::pdist(xs, scale(pt2, attr(xs, "scaled:center"), attr(xs, "scaled:scale"))))
         i <- which(d == min(d))
         if(length(i) > 1) i <- sample(i, 1)
         bg_dat <- setNames(data.frame(grid2, att_score[, i]), c("x1", "x2", "z"))

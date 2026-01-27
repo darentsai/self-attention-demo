@@ -106,6 +106,7 @@ navbarPage(
         radioButtons("kernel", "Kernel",
                      c("Dot-product Attention" = "dp",
                        "RBF Kernel" = "rbf")),
+        shinyWidgets::materialSwitch("key_augment", "Augment Key with Y", value = TRUE, status = "info", inline = FALSE),
         sliderInput("proj_dim", "Projected Dimension", min = 2, max = 10, value = 5, step = 1),
         sliderInput("n_head", "Number of Heads", min = 0, max = 5, value = 1, step = 1),
         numericInput("lr", label = "Learning Rate", min = 0.001, max = 1, value = 0.01, step = 0.002),

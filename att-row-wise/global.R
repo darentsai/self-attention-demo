@@ -1,6 +1,7 @@
 library(shiny); library(bslib)
 library(ggplot2)
 library(keras3)
+use_backend("jax")
 library(reticulate)
 
 source_python(
