@@ -31,14 +31,14 @@ navbarPage(
       title = "Attention Score",
       sidebarLayout(
         sidebarPanel(
-          h5(strong("Risk Score 1")),
+          h5(strong("Risk Score 1"), "\\((\\color{blue}{Z_1})\\)"),
           splitLayout(p("\\(w_1\\)"), sliderInput("w1_rs1", NULL, min = -5, max = 5, value = 1, step = 0.1),
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
           splitLayout(p("\\(w_2\\)"), sliderInput("w2_rs1", NULL, min = -5, max = 5, value = 0, step = 0.1),
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
           splitLayout(p("(bias)"), sliderInput("w0_rs1", NULL, min = -5, max = 5, value = 0, step = 0.1),
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
-          h5(strong("Risk Score 2")),
+          h5(strong("Risk Score 2"), "\\((\\color{limegreen}{Z_2})\\)"),
           splitLayout(p("\\(w_1\\)"), sliderInput("w1_rs2", NULL, min = -5, max = 5, value = 0, step = 0.1),
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
           splitLayout(p("\\(w_2\\)"), sliderInput("w2_rs2", NULL, min = -5, max = 5, value = 1, step = 0.1),
@@ -78,7 +78,7 @@ navbarPage(
       title = "Distance",
       sidebarLayout(
         sidebarPanel(
-          h5(strong("Risk Score 1"), "\\((Z_1)\\)"),
+          h5(strong("Risk Score 1"), "\\((\\color{blue}{Z_1})\\)"),
           splitLayout(p("\\(w_1\\)"), sliderInput("w1_rs1x", NULL, min = -5, max = 5, value = 1, step = 0.1),
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
           splitLayout(p("\\(w_2\\)"), sliderInput("w2_rs1x", NULL, min = -5, max = 5, value = 0, step = 0.1),
@@ -87,7 +87,7 @@ navbarPage(
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
           shinyWidgets::materialSwitch("relu_rs1x", "ReLu", value = FALSE, status = "info", inline = FALSE),
           hr(),
-          h5(strong("Risk Score 2"), "\\((Z_2)\\)"),
+          h5(strong("Risk Score 2"), "\\((\\color{limegreen}{Z_2})\\)"),
           splitLayout(p("\\(w_1\\)"), sliderInput("w1_rs2x", NULL, min = -5, max = 5, value = 0, step = 0.1),
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
           splitLayout(p("\\(w_2\\)"), sliderInput("w2_rs2x", NULL, min = -5, max = 5, value = 1, step = 0.1),
@@ -96,7 +96,7 @@ navbarPage(
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
           shinyWidgets::materialSwitch("relu_rs2x", "ReLu", value = FALSE, status = "info", inline = FALSE),
           hr(),
-          h5(strong("Risk Score 3"), "\\((Z_3)\\)"),
+          h5(strong("Risk Score 3"), "\\((\\color{red}{Z_3})\\)"),
           splitLayout(p("\\(w_1\\)"), sliderInput("w1_rs3x", NULL, min = -5, max = 5, value = 0, step = 0.1),
                       cellWidths = c("12%", "88%"), cellArgs = list(style = "vertical-align: middle;")),
           splitLayout(p("\\(w_2\\)"), sliderInput("w2_rs3x", NULL, min = -5, max = 5, value = 0, step = 0.1),
