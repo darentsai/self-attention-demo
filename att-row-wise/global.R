@@ -1,7 +1,6 @@
 library(shiny); library(bslib)
 library(ggplot2)
 library(keras3)
-use_backend("jax")
 library(reticulate)
 
 source_python(
@@ -35,3 +34,4 @@ mvdnorm <- function(x, mean = 0, sd = 1, angle = 0, scale = FALSE) {
   if(scale) res <- res / c(fun(t(mean), mean, sd, angle))
   return(res)
 }
+
