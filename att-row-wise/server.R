@@ -1,6 +1,6 @@
 function(input, output, session) {
 
-  #--- Idea ---#
+  #--- Idea 1 ---#
   
   # standardized scale
   lim <- 3
@@ -88,7 +88,7 @@ function(input, output, session) {
       if(ncol(att) > 1) {
         p <- p +
           geom_contour_filled(aes(z = weight), data = grid_long,
-                              binwidth = 0.05, alpha = input$alpha) +
+                              binwidth = 0.05) +
           scale_fill_discrete(name = "Weight",
                               palette = \(n) hcl.colors(n, input$palette, rev = input$rev),
                               guide = guide_coloursteps()) +
@@ -110,6 +110,54 @@ function(input, output, session) {
       )
     
     return(p)
+  })
+  
+  #--- Idea 2 ---#
+  
+  output$idea_plot.2 <- renderPlot({
+    
+    grid$rs1x <- risk_score(grid$x1, grid$x2, input$w1_rs1x, input$w2_rs1x, input$w0_rs1x)
+    grid$rs2x <- risk_score(grid$x1, grid$x2, input$w1_rs2x, input$w2_rs2x, input$w0_rs2x)
+    grid$rs3x <- risk_score(grid$x1, grid$x2, input$w1_rs3x, input$w2_rs3x, input$w0_rs3x)
+    
+    if(input$relu_rs1x)
+      grid$rs1x <- pmax(grid$rs1x, 0)
+    if(input$relu_rs2x)
+      grid$rs2x <- pmax(grid$rs2x, 0)
+    if(input$relu_rs3x)
+      grid$rs3x <- pmax(grid$rs3x, 0)
+    
+    grid$dist <- sqrt(grid$rs1x^2 + grid$rs2x^2 + grid$rs3x^2)
+    
+    p.2 <- ggplot(grid, aes(x1, x2)) +
+      labs(x = quote(X[1]), y = quote(X[2])) +
+      coord_fixed(xlim = c(-lim, lim), ylim = c(-lim, lim)) +
+      scale_x_continuous(breaks = -lim:lim) +
+      scale_y_continuous(breaks = -lim:lim) +
+      theme_bw(base_size = 13) +
+      theme(title = element_text(size = 20),
+            legend.key.height = unit(4, "cm"))
+    
+    p.2 <- p.2 +
+      geom_contour_filled(aes(z = dist), bins = 50) +
+      scale_fill_discrete(name = "Distance",
+                          palette = \(n) hcl.colors(n, input$palette.2, rev = input$rev.2),
+                          guide = guide_coloursteps())
+    
+    if(var(grid$rs1x) > 0)
+      p.2 <- p.2 + geomtextpath::geom_textcontour(
+        aes(z = rs1x), colour = "blue", alpha = input$alpha.2
+      )
+    if(var(grid$rs2x) > 0)
+      p.2 <- p.2 + geomtextpath::geom_textcontour(
+        aes(z = rs2x), colour = "green2", alpha = input$alpha.2
+      )
+    if(var(grid$rs3x) > 0)
+      p.2 <- p.2 + geomtextpath::geom_textcontour(
+        aes(z = rs3x), colour = "red", alpha = input$alpha.2
+      )
+    
+    return(p.2)
   })
   
   #--- Practice ---#
