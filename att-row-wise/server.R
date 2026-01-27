@@ -257,9 +257,10 @@ function(input, output, session) {
     
     std_layer <- layer_normalization(axis = -1L, name = "std_layer")
     std_layer %>% adapt(x)
-    y2 <- scale(y)
+    x_std <- std_layer(x)
+    y_std <- scale(y)[, 1, drop = FALSE]
     key <- op_expand_dims(
-      layer_concatenate(std_layer(x), y2[, 1], std_layer(x) * y2[, 1, drop = FALSE]),
+      layer_concatenate(x_std, y_std, x_std * y_std),
       axis = 1
     )
     
