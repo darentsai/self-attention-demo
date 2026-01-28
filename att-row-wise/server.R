@@ -4,7 +4,7 @@ function(input, output, session) {
   
   # standardized scale
   lim <- 3
-  grid_x1 <- grid_x2 <- seq(-lim, lim, length.out = 50)
+  grid_x1 <- grid_x2 <- seq(-lim, lim, length.out = 101)
   grid <- expand.grid(x1 = grid_x1, x2 = grid_x1)
   
   set_pt <- reactiveVal(NULL)
@@ -119,13 +119,14 @@ function(input, output, session) {
     grid$rs1x <- risk_score(grid$x1, grid$x2, input$w1_rs1x, input$w2_rs1x, input$w0_rs1x)
     grid$rs2x <- risk_score(grid$x1, grid$x2, input$w1_rs2x, input$w2_rs2x, input$w0_rs2x)
     grid$rs3x <- risk_score(grid$x1, grid$x2, input$w1_rs3x, input$w2_rs3x, input$w0_rs3x)
-    
+
+    # Set the threshold to a value slightly below 0 to ensure the 0 contour can be drawn
     if(input$relu_rs1x)
-      grid$rs1x <- pmax(grid$rs1x, 0)
+      grid$rs1x <- pmax(grid$rs1x, -1e-9)
     if(input$relu_rs2x)
-      grid$rs2x <- pmax(grid$rs2x, 0)
+      grid$rs2x <- pmax(grid$rs2x, -1e-9)
     if(input$relu_rs3x)
-      grid$rs3x <- pmax(grid$rs3x, 0)
+      grid$rs3x <- pmax(grid$rs3x, -1e-9)
     
     grid$dist <- sqrt(grid$rs1x^2 + grid$rs2x^2 + grid$rs3x^2)
     
