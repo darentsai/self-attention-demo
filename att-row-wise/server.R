@@ -231,8 +231,10 @@ function(input, output, session) {
     val_ind <- sample(nrow(x), nrow(x) * input$frac_val)
     xval <- x[val_ind, ]
     yval <- y[val_ind, ]
-    x <- x[-val_ind, ]
-    y <- y[-val_ind, ]
+    if(input$frac_val > 0) {
+      x <- x[-val_ind, ]
+      y <- y[-val_ind, ]
+    }
     
     # Compare attention scores of different labels at the same location
     if(input$data == "2 Clusters") {
@@ -248,8 +250,8 @@ function(input, output, session) {
                  c(1, 0), c(0, 1))
     }
     
-    grid2_x1 <- seq(min(x[, 1]), max(x[, 1]), len = 100)
-    grid2_x2 <- seq(min(x[, 2]), max(x[, 2]), len = 100)
+    grid2_x1 <- seq(min(x[, 1]), max(x[, 1]), len = 101)
+    grid2_x2 <- seq(min(x[, 2]), max(x[, 2]), len = 101)
     grid2 <- as.matrix(expand.grid(grid2_x1, grid2_x2))
     
     set_x(x)
