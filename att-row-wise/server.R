@@ -140,22 +140,22 @@ function(input, output, session) {
             legend.key.height = unit(4, "cm"))
     
     p.2 <- p.2 +
-      geom_contour_filled(aes(z = dist), bins = 50) +
+      geom_contour_filled(aes(z = dist), bins = 20, colour = "black", linewidth = 0.2) +
       scale_fill_discrete(name = "Distance",
                           palette = \(n) hcl.colors(n, input$palette.2, rev = input$rev.2),
                           guide = guide_coloursteps())
     
     if(var(grid$rs1x) > 0)
       p.2 <- p.2 + geomtextpath::geom_textcontour(
-        aes(z = rs1x), colour = "blue", alpha = input$alpha.2
+        aes(z = rs1x), colour = "blue", alpha = input$alpha.2, binwidth = 1
       )
     if(var(grid$rs2x) > 0)
       p.2 <- p.2 + geomtextpath::geom_textcontour(
-        aes(z = rs2x), colour = "green2", alpha = input$alpha.2
+        aes(z = rs2x), colour = "green2", alpha = input$alpha.2, binwidth = 1
       )
     if(var(grid$rs3x) > 0)
       p.2 <- p.2 + geomtextpath::geom_textcontour(
-        aes(z = rs3x), colour = "red", alpha = input$alpha.2
+        aes(z = rs3x), colour = "red", alpha = input$alpha.2, binwidth = 1
       )
     
     return(p.2)
@@ -282,13 +282,13 @@ function(input, output, session) {
     if(datname == "Circle") {
       p <- p +
         ggforce::geom_circle(aes(x0 = 0, y0 = 0, r = input$radius + offset),
-                             n = 50, linewidth = 0.2, color = circle.col)
+                             n = 51, linewidth = 0.2, color = circle.col)
     } else if(datname == "Ring") {
       p <- p +
         ggforce::geom_circle(aes(x0 = 0, y0 = 0, r = max(0, input$radius - offset)),
-                             n = 50, linewidth = 0.2, color = circle.col) +
+                             n = 51, linewidth = 0.2, color = circle.col) +
         ggforce::geom_circle(aes(x0 = 0, y0 = 0, r = input$radius + 0.2 + offset),
-                             n = 50, linewidth = 0.2, color = circle.col)
+                             n = 51, linewidth = 0.2, color = circle.col)
     }
     
     return(p)
